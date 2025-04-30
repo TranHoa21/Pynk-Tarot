@@ -33,23 +33,26 @@ export default function TestimonialsSlider() {
                     }}
                 >
                     {testimonials.map((src, index) => (
-                        <SwiperSlide key={index} className="flex justify-center">
-                            <motion.div
-                                className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-200 max-w-xs"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                            >
-                                <div className="relative w-full h-[400px]">
-                                    <Image
-                                        src={src}
-                                        alt={`Testimonial ${index + 1}`}
-                                        fill
-                                        className="object-contain p-2"
-                                    />
-                                </div>
-                            </motion.div>
+                        <SwiperSlide key={index}>
+                            <div className="flex justify-center">
+                                <motion.div
+                                    className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-200 w-full max-w-[90vw] sm:max-w-xs"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <div className="relative w-full h-[400px]">
+                                        <Image
+                                            src={src}
+                                            alt={`Testimonial ${index + 1}`}
+                                            fill
+                                            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                                            className="object-contain p-2"
+                                        />
+                                    </div>
+                                </motion.div>
+                            </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>

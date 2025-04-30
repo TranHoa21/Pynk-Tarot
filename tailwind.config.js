@@ -2,6 +2,7 @@
 import typography from '@tailwindcss/typography';
 
 module.exports = {
+    darkMode: false,  // Đặt ngoài `theme`
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",

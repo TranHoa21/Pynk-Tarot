@@ -47,33 +47,36 @@ export default function HeroBanner() {
                     <h1 className="text-4xl md:text-5xl font-bold text-blue-900 font-[cursive] leading-snug">
                         Khám phá định mệnh <br /> của bạn qua thông điệp từ những lá bài
                     </h1>
-                </motion.div>
 
-                <motion.p
-                    className="mt-4 text-gray-700 text-lg"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInUp}
-                    custom={0.2}
-                >
-                    Mọi câu trả lời đều đã được vũ trụ an bài – Giờ là lúc cùng nhau giải mã!
-                </motion.p>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInUp}
-                    custom={0.4}
-                >
-                    <Link
-                        href="#"
-                        className="inline-block mt-6 bg-[#B76E79] text-white px-6 py-3 rounded-md shadow hover:bg-[#D29BA3] transition"
+                    <motion.p
+                        className="mt-4 text-gray-700 text-lg"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        custom={0.2}
                     >
-                        Get Started →
-                    </Link>
+                        Mọi câu trả lời đều đã được vũ trụ an bài – Giờ là lúc cùng nhau giải mã!
+                    </motion.p>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        custom={0.4}
+                    >
+                        <Link
+                            href="#"
+                            className="inline-block mt-6 bg-[#B76E79] text-white px-6 py-3 rounded-md shadow hover:bg-[#D29BA3] transition"
+                        >
+                            Get Started →
+                        </Link>
+                    </motion.div>
                 </motion.div>
+
+
+
+
 
                 {/* Tarot cards */}
                 <div className="relative flex justify-center items-center h-[400px]">
