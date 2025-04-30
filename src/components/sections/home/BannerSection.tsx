@@ -32,7 +32,7 @@ export default function HeroBanner() {
     }, [])
 
     return (
-        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-300 via-pink-100 to-pink-200 overflow-hidden">
+        <section className="mt-[5%] relative w-full min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-300 via-pink-100 to-pink-200 overflow-hidden">
             <div className="absolute inset-0 bg-[url('/stars.png')] bg-repeat opacity-50 z-0 pointer-events-none" />
 
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 px-6 md:px-20 py-16 items-center">
