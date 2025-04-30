@@ -101,28 +101,25 @@ export default function BlogDetailPage() {
         return '$' + Number(price).toLocaleString();
     };
 
-    if (!post) return <div className="text-center py-20 text-white">Loading post...</div>;
+    if (!post) return <div className="text-center py-20 text-gray-600">Loading post...</div>;
 
     return (
         <motion.section
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className=" mx-auto py-12 px-4 bg-[#031d2e] w-full"
+            className="bg-white text-gray-800 mx-auto py-12 px-4 w-full mt-[5%]"
         >
-            <nav className="text-sm text-gray-400 mb-4">
-                <Link href="/" className="hover:underline">Home</Link> / <Link href="/blog" className="hover:underline">Blog</Link> / <span className="text-orange-400">{post.title}</span>
+            <nav className="text-sm text-gray-500 mb-4">
+                <Link href="/" className="hover:underline">Home</Link> / <Link href="/blog" className="hover:underline">Blog</Link> / <span className="text-orange-500">{post.title}</span>
             </nav>
 
             <div className="flex flex-col lg:flex-row gap-10">
-                {/* LEFT: Main Post */}
                 <div className="flex-1">
-                    <h1 className="text-4xl font-extrabold text-orange-400 mb-4 leading-tight">{post.title}</h1>
-
-                    <div className="text-sm text-gray-400 mb-6">
+                    <h1 className="text-4xl font-extrabold text-gray-900 mb-4 leading-tight">{post.title}</h1>
+                    <div className="text-sm text-gray-500 mb-6">
                         <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                     </div>
-
                     {post.imageUrl && (
                         <div className="w-full mb-8 rounded-xl overflow-hidden shadow-md">
                             <Image
@@ -130,25 +127,23 @@ export default function BlogDetailPage() {
                                 alt={post.title}
                                 width={1200}
                                 height={600}
-                                className="w-full h-auto max-h-[400px] object-cover transition-transform duration-300 hover:scale-[1.01]"
+                                className="w-full h-auto max-h-[400px] object-cover"
                             />
                         </div>
                     )}
-
                     <article
-                        className="prose prose-lg max-w-none text-gray-300 leading-relaxed"
+                        className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     ></article>
 
-                    {/* Comments Section */}
-                    <div className="mt-[5%]">
-                        <h2 className="text-2xl font-semibold text-white mb-6">Comments</h2>
+                    <div className="mt-12">
+                        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Comments</h2>
                         <div className="space-y-6">
                             {comments.map((comment) => (
-                                <div key={comment.id} className="bg-[#031d2e] p-4 rounded-lg shadow-sm">
-                                    <p className="font-medium text-white">{comment.author}</p>
-                                    <p className="text-sm text-gray-400">{new Date(comment.createdAt).toLocaleDateString()}</p>
-                                    <p className="mt-2 text-gray-300">{comment.content}</p>
+                                <div key={comment.id} className="bg-gray-50 border border-gray-200 p-4 rounded-lg shadow">
+                                    <p className="font-medium text-gray-800">{comment.author}</p>
+                                    <p className="text-sm text-gray-500">{new Date(comment.createdAt).toLocaleDateString()}</p>
+                                    <p className="mt-2 text-gray-700">{comment.content}</p>
                                 </div>
                             ))}
                         </div>
@@ -156,7 +151,7 @@ export default function BlogDetailPage() {
                         {user && (
                             <div className="mt-6">
                                 <textarea
-                                    className="w-full p-3 border border-gray-600 bg-[#031d2e] text-white rounded-lg"
+                                    className="w-full p-3 border border-gray-300 bg-white text-gray-800 rounded-lg"
                                     placeholder="Write a comment..."
                                     value={newComment}
                                     onChange={(e) => setNewComment(e.target.value)}
@@ -172,15 +167,14 @@ export default function BlogDetailPage() {
                     </div>
                 </div>
 
-                {/* RIGHT: Sidebar */}
-                <aside className="w-full lg:w-[35%] lg:pl-8 lg:border-l lg:border-gray-700">
-                    <h2 className="text-2xl font-semibold text-white mb-6">Featured Posts</h2>
+                <aside className="w-full lg:w-[35%] lg:pl-8 lg:border-l lg:border-gray-200">
+                    <h2 className="text-2xl font-semibold text-gray-900 mb-6">Featured Posts</h2>
                     <div className="space-y-6">
                         {relatedPosts.slice(0, 4).map((rp) => (
                             <Link
                                 key={rp.slug}
                                 href={`/blog/${rp.slug}`}
-                                className="block bg-[#08273c] p-4 rounded-lg shadow-sm hover:shadow-md transition duration-300"
+                                className="block bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition"
                             >
                                 {rp.imageUrl && (
                                     <Image
@@ -191,7 +185,7 @@ export default function BlogDetailPage() {
                                         className="w-full h-40 object-cover rounded-md mb-3"
                                     />
                                 )}
-                                <h3 className="text-lg font-semibold text-white hover:text-orange-400 transition line-clamp-2">
+                                <h3 className="text-lg font-semibold text-gray-900 hover:text-orange-500 transition line-clamp-2">
                                     {rp.title}
                                 </h3>
                             </Link>
@@ -203,17 +197,17 @@ export default function BlogDetailPage() {
                     </div>
 
                     <div className="w-full my-5">
-                        <h2 className="text-2xl font-semibold text-white mb-6">Our Products</h2>
+                        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Our Products</h2>
                         <div className="grid grid-cols-1 gap-6">
                             {products.map((product) => (
                                 <Link key={product.id} href={`/products/${product.id}`}>
-                                    <div className="group bg-[#031d2e] rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                                    <div className="group bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-1">
                                         <div className="relative w-full h-64 overflow-hidden">
                                             <Image
                                                 src={product.imageUrl}
                                                 alt={product.name}
                                                 fill
-                                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                                className="object-cover group-hover:scale-105 transition-transform"
                                             />
                                             {product.sale && (
                                                 <span className="absolute top-2 left-2 bg-orange-500 text-white text-sm px-3 py-1 rounded-full shadow">
@@ -221,19 +215,19 @@ export default function BlogDetailPage() {
                                                 </span>
                                             )}
                                         </div>
-                                        <div className="p-4 text-left space-y-2">
-                                            <h3 className="text-xl font-medium text-white group-hover:text-orange-400 transition">
+                                        <div className="p-4 space-y-2">
+                                            <h3 className="text-xl font-medium text-gray-900 group-hover:text-orange-500 transition">
                                                 {product.name}
                                             </h3>
-                                            <div className="flex items-center gap-1 text-orange-400">
+                                            <div className="flex items-center gap-1 text-orange-500">
                                                 {Array.from({ length: product.rating }, (_, i) => (
                                                     <Star key={i} size={16} fill="#f97316" stroke="#f97316" />
                                                 ))}
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <p className="text-orange-400 font-semibold">{formatPrice(product.price)}</p>
+                                                <p className="text-orange-500 font-semibold">{formatPrice(product.price)}</p>
                                                 {product.sale && product.originalPrice && (
-                                                    <p className="text-gray-500 line-through text-sm">{formatPrice(product.originalPrice)}</p>
+                                                    <p className="text-gray-400 line-through text-sm">{formatPrice(product.originalPrice)}</p>
                                                 )}
                                             </div>
                                         </div>
@@ -245,16 +239,15 @@ export default function BlogDetailPage() {
                 </aside>
             </div>
 
-            {/* Related posts */}
-            <div className="w-full mt-12 border-t border-gray-700 pt-8">
-                <h1 className="text-4xl font-semibold text-white mb-8">You Might Also Like</h1>
+            <div className="w-full mt-12 border-t border-gray-200 pt-8">
+                <h1 className="text-4xl font-semibold text-gray-900 mb-8">You Might Also Like</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {relatedPosts.slice(0, 4).map((rp) => (
-                        <Link key={rp.slug} href={`/blog/${rp.slug}`} className="block bg-[#08273c] p-4 rounded-lg shadow hover:shadow-md transition">
+                        <Link key={rp.slug} href={`/blog/${rp.slug}`} className="block bg-white border border-gray-200 p-4 rounded-lg shadow hover:shadow-md transition">
                             {rp.imageUrl && (
                                 <Image src={rp.imageUrl} alt={rp.title} width={400} height={250} className="w-full h-40 object-cover rounded-md mb-3" />
                             )}
-                            <h3 className="text-lg font-semibold text-white hover:text-orange-400 line-clamp-2">{rp.title}</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 hover:text-orange-500 line-clamp-2">{rp.title}</h3>
                         </Link>
                     ))}
                 </div>

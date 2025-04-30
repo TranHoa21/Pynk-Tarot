@@ -1,90 +1,64 @@
-'use client';
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import "@/style/home/BannerSection.css";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
-export default function BannerSection() {
-    const router = useRouter();
-    const [isClicked, setIsClicked] = useState(false);
+const tarotImages = [
+    '/images/8673193.jpg',
+    '/images/8673204.jpg',
+    '/images/8673212.jpg',
+]
 
-    const handleClick = () => {
-        setIsClicked(true);
-        setTimeout(() => {
-            router.push("/san-pham");
-        }, 300); // Thời gian delay hiệu ứng trước khi chuyển trang
-    };
+export default function HeroBanner() {
+    const [cards, setCards] = useState(tarotImages)
 
+    // Shuffle every 3 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCards(prev => [...prev].sort(() => Math.random() - 0.5))
+        }, 3000)
+        return () => clearInterval(interval)
+    }, [])
 
     return (
-        <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            id="hero"
-            className="text-white m-0 sm:m-auto py-4 sm:py-6 md:py-12 bg-[#0B2239] relative"
-            style={{ backgroundImage: `url("/images/bg1.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-        >
-            <button className="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 bg-[#102C47] text-white text-xs px-5 py-2 hover:bg-orange-500 transition-all z-20" style={{ clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)' }}>
-                ◀ PREV
-            </button>
+        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-300 via-pink-100 to-pink-200 overflow-hidden">
+            <div className="absolute inset-0 bg-[url('/stars.png')] bg-repeat opacity-50 z-0 pointer-events-none" />
 
-            <button className="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 bg-[#102C47] text-white text-xs px-5 py-2 hover:bg-orange-500 transition-all z-20" style={{ clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)' }}>
-                NEXT ▶
-            </button>
-
-            <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
-
-                {/* Left Content */}
-                <div className="flex-1 text-left sm:pl-8 sm:mt-0">
-                    <p className="text-orange-500 text-sm sm:text-lg font-semibold mb-2">What is Your Sign ?</p>
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
-                        Read Your Daily <br /> Horoscope Today
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 px-6 md:px-20 py-16 items-center">
+                {/* Text */}
+                <div>
+                    <h1 className="text-4xl md:text-5xl font-bold text-blue-900 font-[cursive] leading-snug">
+                        Khám phá định mệnh <br /> của bạn qua thông điệp từ những lá bài
                     </h1>
-                    <p className="text-gray-300 text-sm sm:text-base mb-6">
-                        Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore etesde dolore magna aliqua suspendisse and the gravida.
-                    </p>
-                    <button
-                        onClick={handleClick}
-                        className={`inline-block bg-orange-500 text-white font-medium px-4 py-3 rounded-full
-          transition-all duration-300 ease-in-out transform 
-          ${isClicked ? 'scale-90 opacity-80' : 'hover:scale-105 hover:shadow-lg'}`}
-                        style={{
-                            clipPath: 'polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)'
-                        }}
+                    <p className="mt-4 text-gray-700 text-lg">
+                        Mọi câu trả lời đều đã được vũ trụ an bài –  Giờ là lúc cùng nhau giải mã!                    </p>
+                    <Link
+                        href="#"
+                        className="inline-block mt-6 bg-[#B76E79] text-white px-6 py-3 rounded-md shadow hover:bg-[#D29BA3] transition"
                     >
-                        READ MORE
-                    </button>
+                        Get Started →
+                    </Link>
                 </div>
 
-                {/* Right Image */}
-                <motion.div
-                    className="flex justify-center md:justify-end w-full sm:w-auto"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                >
-                    <div className="relative w-[400px] sm:w-[400px] md:w-[600px] max-w-full floating-image">
+                {/* Tarot cards */}
+                <div className="relative flex justify-center items-center h-[400px]">
+                    {cards.map((src, index) => (
                         <Image
-                            src="/images/snapedit_1745651487399.png"
-                            alt="Horoscope Chart"
-                            width={500}
-                            height={500}
-                            className="rounded-full w-full object-cover"
-                            loading="lazy"
+                            key={src}
+                            src={src}
+                            alt={`Tarot card ${index}`}
+                            width={200}
+                            height={300}
+                            className={`absolute transition-all duration-700 ease-in-out drop-shadow-2xl
+                ${index === 0 ? 'rotate-[-10deg] left-0 z-10' : ''}
+                ${index === 1 ? 'rotate-[0deg] left-1/3 z-20' : ''}
+                ${index === 2 ? 'rotate-[10deg] left-2/3 z-10' : ''}
+              `}
                         />
-
-                    </div>
-                </motion.div>
-
+                    ))}
+                </div>
             </div>
-        </motion.section>
-
-
-
-
-    );
+        </section>
+    )
 }
