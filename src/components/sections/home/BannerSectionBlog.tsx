@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-//import "@/style/home/BannerSection.css";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (delay: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, delay },
+    }),
+};
 
 export default function BannerSectionBlog() {
     const router = useRouter();
@@ -15,9 +22,8 @@ export default function BannerSectionBlog() {
         setIsClicked(true);
         setTimeout(() => {
             router.push("/san-pham");
-        }, 300); // Thời gian delay hiệu ứng trước khi chuyển trang
+        }, 300);
     };
-
 
     return (
         <motion.section
@@ -39,26 +45,40 @@ export default function BannerSectionBlog() {
 
             {/* Nội dung căn giữa */}
             <div className="max-w-md mx-auto px-4 text-left">
-                <h1 className="text-[10px] sm:text-sm md:text-base font-semibold leading-snug mb-1 sm:mb-2">
+                <motion.h1
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    custom={0}
+                    className="text-[10px] sm:text-sm md:text-base font-semibold leading-snug mb-1 sm:mb-2"
+                >
                     Biến Ảnh Của Bạn <br /> Thành Tác Phẩm Nghệ Thuật
-                </h1>
-                <p className="text-[#7D7D7D] text-[6px] w-[60%] sm:text-xs leading-snug mb-2 sm:mb-3">
+                </motion.h1>
+
+                <motion.p
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    custom={0.2}
+                    className="text-[#7D7D7D] text-[6px] w-[60%] sm:text-xs leading-snug mb-2 sm:mb-3"
+                >
                     Vẽ chân dung theo yêu cầu – độc đáo, tinh tế, hoàn toàn cá nhân hóa. Món quà ý nghĩa dành cho người bạn yêu thương.
-                </p>
-                <button
+                </motion.p>
+
+                <motion.button
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    custom={0.4}
                     onClick={handleClick}
                     className={`inline-block bg-[#FF6B6B] text-white font-medium px-3 py-1.5 sm:px-5 sm:py-2 rounded-full
-      text-xs sm:text-sm
-      transition-all duration-300 ease-in-out transform 
-      ${isClicked ? "scale-90 opacity-80" : "hover:scale-105 hover:shadow-lg"}`}
+            text-xs sm:text-sm
+            transition-all duration-300 ease-in-out transform 
+            ${isClicked ? "scale-90 opacity-80" : "hover:scale-105 hover:shadow-lg"}`}
                 >
                     Đặt ngay
-                </button>
+                </motion.button>
             </div>
         </motion.section>
-
-
-
-
     );
 }

@@ -1,5 +1,14 @@
 import { FC } from "react";
-import { LucideArrowRight, LucideHeart, LucidePersonStanding, LucideBarChart3, LucideBookOpen, LucideUserCircle2, LucideCoins } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  LucideArrowRight,
+  LucideHeart,
+  LucidePersonStanding,
+  LucideBarChart3,
+  LucideBookOpen,
+  LucideUserCircle2,
+  LucideCoins,
+} from "lucide-react";
 
 const services = [
   {
@@ -40,6 +49,18 @@ const services = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: i * 0.15,
+    },
+  }),
+};
+
 const ServicesSection: FC = () => {
   return (
     <section id="services" className="py-16 bg-white">
@@ -51,23 +72,31 @@ const ServicesSection: FC = () => {
           Khám phá <span className="text-[#b76e79]">các dịch vụ</span> của chúng tôi
         </h2>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
         {services.map((service, index) => (
-          <div
+          <motion.div
             key={index}
             className={`bg-white shadow-md p-6 rounded-xl hover:shadow-lg transition duration-300 ${service.color}`}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={index}
           >
             <div className="mb-4">{service.icon}</div>
             <h3 className="text-xl font-bold text-[#1f1f39] mb-2">{service.title}</h3>
             <p className="text-sm text-gray-600 mb-4">{service.description}</p>
-            <a href="#" className="text-sm font-medium text-[#1f1f39] inline-flex items-center hover:text-[#b76e79]">
+            <a
+              href="#"
+              className="text-sm font-medium text-[#1f1f39] inline-flex items-center hover:text-[#b76e79]"
+            >
               Xem thêm <LucideArrowRight className="w-4 h-4 ml-1" />
             </a>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
-
   );
 };
 

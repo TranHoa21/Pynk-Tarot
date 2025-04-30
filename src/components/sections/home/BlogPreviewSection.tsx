@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaUser, FaComment } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const blogPosts = [
     {
@@ -38,23 +39,44 @@ const blogPosts = [
     },
 ];
 
+const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (delay: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, delay },
+    }),
+};
+
 const BlogSection: React.FC = () => {
     return (
         <section className="py-20 bg-[#fdf7f8]">
             <div className="container mx-auto max-w-7xl px-4">
-                <div className="text-center mb-16">
+                <motion.div
+                    className="text-center mb-16"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    custom={0}
+                >
                     <h1 className="text-4xl font-bold text-[#222] mb-4">Bài Viết Mới Nhất</h1>
                     <p className="text-base text-[#555] leading-relaxed">
                         Chúng tôi chia sẻ những bài viết hữu ích về Tarot, chữa lành và phát triển bản thân. <br />
                         Hãy cùng khám phá hành trình tâm linh của chính bạn nhé!
                     </p>
-                </div>
+                </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {blogPosts.map((post, index) => (
-                        <div
+                        <motion.div
                             key={index}
                             className="group bg-white rounded-xl overflow-hidden shadow-md transition duration-300"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={fadeInUp}
+                            custom={index * 0.2}
                         >
                             <div className="relative w-full h-60">
                                 <Link href={post.link}>
@@ -88,7 +110,7 @@ const BlogSection: React.FC = () => {
 
                                 <p className="text-[#444] text-sm leading-relaxed">{post.description}</p>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

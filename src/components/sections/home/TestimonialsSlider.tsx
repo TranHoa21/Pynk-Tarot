@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -33,7 +34,13 @@ export default function TestimonialsSlider() {
                 >
                     {testimonials.map((src, index) => (
                         <SwiperSlide key={index} className="flex justify-center">
-                            <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-200 max-w-xs">
+                            <motion.div
+                                className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-200 max-w-xs"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                            >
                                 <div className="relative w-full h-[400px]">
                                     <Image
                                         src={src}
@@ -42,7 +49,7 @@ export default function TestimonialsSlider() {
                                         className="object-contain p-2"
                                     />
                                 </div>
-                            </div>
+                            </motion.div>
                         </SwiperSlide>
                     ))}
                 </Swiper>

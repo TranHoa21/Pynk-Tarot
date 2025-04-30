@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function ContactSection() {
     const [form, setForm] = useState({
@@ -38,7 +39,7 @@ export default function ContactSection() {
                 setError(data.message || "Đã có lỗi xảy ra.");
             }
         } catch (err) {
-            console.log("check err", err);
+            console.error("Lỗi khi gửi form:", err);
             setError("Lỗi mạng. Vui lòng thử lại.");
         } finally {
             setLoading(false);
@@ -48,10 +49,26 @@ export default function ContactSection() {
     const inputStyle =
         "w-full border border-gray-300 focus:border-pink-400 focus:ring-1 focus:ring-pink-300 rounded-md px-4 py-2 outline-none transition";
 
+    const fadeUp = {
+        hidden: { opacity: 0, y: 40 },
+        visible: (custom: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, delay: custom * 0.2 },
+        }),
+    };
+
     return (
         <section id="contact" className="py-20 bg-gray-50">
             <div className="container mx-auto px-4 max-w-6xl">
-                <div className="text-center mb-12" data-aos="fade-up">
+                <motion.div
+                    className="text-center mb-12"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    custom={0}
+                >
                     <h2 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-600">
                         Liên hệ
                     </h2>
@@ -59,11 +76,18 @@ export default function ContactSection() {
                         <span>Cần hỗ trợ?</span>{" "}
                         <span className="font-semibold text-lg">Liên hệ với chúng tôi</span>
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-8" data-aos="fade-up" data-aos-delay="100">
-                    <div className="space-y-6">
-                        <div className="flex items-start space-x-4" data-aos="fade-up" data-aos-delay="200">
+                <div className="grid md:grid-cols-2 gap-8">
+                    <motion.div
+                        className="space-y-6"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeUp}
+                        custom={0.5}
+                    >
+                        <div className="flex items-start space-x-4">
                             <i className="bi bi-geo-alt text-pink-500 text-2xl"></i>
                             <div>
                                 <h3 className="font-semibold text-lg">Địa chỉ</h3>
@@ -71,7 +95,7 @@ export default function ContactSection() {
                             </div>
                         </div>
 
-                        <div className="flex items-start space-x-4" data-aos="fade-up" data-aos-delay="300">
+                        <div className="flex items-start space-x-4">
                             <i className="bi bi-telephone text-pink-500 text-2xl"></i>
                             <div>
                                 <h3 className="font-semibold text-lg">Gọi cho chúng tôi</h3>
@@ -79,7 +103,7 @@ export default function ContactSection() {
                             </div>
                         </div>
 
-                        <div className="flex items-start space-x-4" data-aos="fade-up" data-aos-delay="400">
+                        <div className="flex items-start space-x-4">
                             <i className="bi bi-envelope text-pink-500 text-2xl"></i>
                             <div>
                                 <h3 className="font-semibold text-lg">Email</h3>
@@ -94,9 +118,17 @@ export default function ContactSection() {
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
-                    </div>
+                    </motion.div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6" data-aos="fade-up" data-aos-delay="200">
+                    <motion.form
+                        onSubmit={handleSubmit}
+                        className="space-y-6"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeUp}
+                        custom={1}
+                    >
                         <div>
                             <label htmlFor="name" className="block font-medium pb-2">
                                 Tên của bạn
@@ -169,7 +201,7 @@ export default function ContactSection() {
                                 Gửi tin nhắn
                             </button>
                         </div>
-                    </form>
+                    </motion.form>
                 </div>
             </div>
         </section>
